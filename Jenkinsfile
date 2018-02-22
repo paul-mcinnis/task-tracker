@@ -1,4 +1,5 @@
 node ('master') {
+    def success = false
     try {
         stage('import'){
             try{
@@ -23,7 +24,14 @@ node ('master') {
                         error("EXPORT")
                     }
                 }
+        success = true
     } catch(err) {
         // slackSend color: "danger", message: "Error: ${err.message} stage failure: ${env.BUILD_NUMBER}"
+    } finally {
+            if(success == true) {
+                // slackSend color: "good", message: "Build ${env.BUILD_NUMBER} successfully DEPLOYED"
+            } else {
+                currentBuild.result = "FAILURE"
+            }
     }
 }
