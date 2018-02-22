@@ -1,4 +1,4 @@
-('master') {
+node ('master') {
     try {
         stage('import'){
             try{
