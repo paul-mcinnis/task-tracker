@@ -14,8 +14,8 @@ node ('master') {
         stage('export'){
                     try{
                         dir('task-tracker') {
-                            git checkout master
-                            git commit -am "Build number ${env.BUILD_NUMBER}"
+                            // git checkout master
+                            // git commit -am "Build number ${env.BUILD_NUMBER}"
                             git push origin master
                         }
                     } catch(err) {
