@@ -4,8 +4,9 @@ node ('master') {
         stage('import'){
             try{
                 dir('task-tracker') {
-                    git url:'https://github.com/paul-mcinnis/task-tracker.git'
-                }   
+                    sh("rm -rf task-tracker")
+                    sh("git clone https://github.com/paul-mcinnis/task-tracker")
+                }
             } catch(err) {
                 currentBuild.result = 'ABORTED'
                 error("IMPORT")
@@ -15,7 +16,9 @@ node ('master') {
         stage('export'){
                     try{
                         dir('task-tracker') {
-                            sh('(git cd task-tracker && git push origin master)')
+                            sshagent (credentials: ['87fac123-1144-4b20-a928-aaa8480c3db5']) {
+                                sh('(cd task-tracker && git checkout dev && git push origin master)')
+                            }
                         }
                     } catch(err) {
                         currentBuild.result = 'ABORTED'
