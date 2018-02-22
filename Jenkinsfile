@@ -2,7 +2,7 @@
     try {
         stage('import'){
             try{
-                dir('WebNote') {
+                dir('task-tracker') {
                     git url:'https://github.com/paul-mcinnis/task-tracker.git'
                 }   
             } catch(err) {
