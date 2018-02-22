@@ -15,9 +15,7 @@ node ('master') {
         stage('export'){
                     try{
                         dir('task-tracker') {
-                            // git checkout master
-                            // git commit -am "Build number ${env.BUILD_NUMBER}"
-                            git push origin master
+                            sh('(git cd task-tracker && git push origin master)')
                         }
                     } catch(err) {
                         currentBuild.result = 'ABORTED'
